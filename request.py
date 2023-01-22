@@ -3,7 +3,7 @@ import requests
 #
 BASE = "http://127.0.0.1:5000/"
 #
-response = requests.get(BASE + "exchangecu")
+response = requests.get(BASE + "exchangecu").json()
 #
 # print(response.json())
 import re
@@ -17,4 +17,4 @@ import requests
 # res= soup(response.text)
 
 # Exchange2019 = (re.search("15.02.\d\d\d\d.\d\d\d",str(soup)).group())
-print(response.text)
+print(response['exchange2013'])
