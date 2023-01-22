@@ -1,11 +1,18 @@
+from flask import Flask
+from flask_restful import Api, Resource
+from Regex import exchangecus
+app = Flask(__name__)
+api = Api(app)
+ex13,ex16 ,ex19 = exchangecus() ##get the values from microsoft using the Regex frile function
 
-import requests
-from bs4 import BeautifulSoup
-url = 'https://learn.microsoft.com/en-us/exchange/new-features/build-numbers-and-release-dates?view=exchserver-2019'
 
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'html.parser')
+class ExchangeCu(Resource):
+    def get(self):
+        return {"exchange2013":ex13,
+                "exchange2016":ex16,
+                "exchange2019":ex19}
 
-tables = soup.find_all('table')
-for table in tables:
-    print(table)
+
+api.add_resource(ExchangeCu, '/exchangecu')
+if __name__ == "__main__":
+    app.run(debug=True)
